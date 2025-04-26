@@ -6,7 +6,7 @@
 /*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:42:37 by kiwasa            #+#    #+#             */
-/*   Updated: 2025/04/22 20:41:17 by kiwasa           ###   ########.fr       */
+/*   Updated: 2025/04/27 00:00:17 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,26 @@ void PhoneBook::addContact(const Contact& contact)
 void PhoneBook::searchContacts() const
 {
 	std::cout	<< std::setw(10) << "Index" << "|"
-				<< std::setw(10) << "First Name" << "|"
-				<< std::setw(10) << "Last Name" << "|"
-				<< std::setw(10) << "Nickname" << std::endl;
-	std::cout	<< "---------------------------------------" << std::endl;
+				<< std::setw(11) << "First Name" << "|"
+				<< std::setw(11) << "Last Name " << "|"
+				<< std::setw(11) << "Nickname " << std::endl;
+	std::cout	<< "-------------------------------------------------" << std::endl;
 	
 	for(int i = 0; i < currentSize; ++i)
 	{
 		std::cout << std::setw(10) << i << "|";
-		std::cout << std::setw(10) << contacts[i].firstName.substr(0, 9) << ".|";
-		std::cout << std::setw(10) << contacts[i].lastName.substr(0, 9) << ".|";
-		std::cout << std::setw(10) << contacts[i].nickname.substr(0, 9) << "." << std::endl;
+		if (contacts[i].getFirstName().size() >= 10)
+			std::cout << std::setw(10) << contacts[i].getFirstName().substr(0, 9) << ".|";
+		else
+			std::cout << std::setw(11) << contacts[i].getFirstName().substr(0, 9) << "|";
+		if (contacts[i].getLastName().size() >= 10)
+			std::cout << std::setw(10) << contacts[i].getLastName().substr(0, 9) << ".|";
+		else
+			std::cout << std::setw(11) << contacts[i].getLastName().substr(0, 9) << "|";
+		if (contacts[i].getLastName().size() >= 10)
+			std::cout << std::setw(10) << contacts[i].getNickname().substr(0, 9) << "." << std::endl;
+		else
+			std::cout << std::setw(11) << contacts[i].getNickname().substr(0, 9) << std::endl;
 	}
 }
 

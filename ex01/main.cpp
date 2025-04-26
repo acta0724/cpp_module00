@@ -6,20 +6,25 @@
 /*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:25:23 by kiwasa            #+#    #+#             */
-/*   Updated: 2025/04/26 17:19:00 by kiwasa           ###   ########.fr       */
+/*   Updated: 2025/04/27 00:14:13 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <cctype>
 #include <cstdlib>
+#include <limits>
 #include "phoneBook.hpp"
 
 std::string getNonEmptyLine(const std::string& prompt) {
     std::string line;
     while (true) {
         std::cout << prompt;
-        std::getline(std::cin, line);
+        if (!std::getline(std::cin, line))
+        {
+            std::cerr << "\nEOF detected. Exiting program." << std::endl;
+            std::exit (1);
+        }
         if (!line.empty())
             return line;
         std::cout << "[Error] Input is empty. Please try again.\n";
@@ -30,7 +35,11 @@ std::string getNumericLine(const std::string& prompt) {
     std::string line;
     while (true) {
         std::cout << prompt;
-        std::getline(std::cin, line);
+        if (!std::getline(std::cin, line))
+        {
+            std::cerr << "\nEOF detected. Exiting program." << std::endl;
+            std::exit (1);
+        }
         bool allDigit = !line.empty();
         for (std::string::size_type i = 0; i < line.size(); ++i) {
 			char c = line[i];
@@ -73,8 +82,17 @@ int getValidIndex(const PhoneBook& phoneBook)
     int index;
 
     while (true) {
+        if (phoneBook.getContactCount() == 0)
+        {
+            std::cout << "no phone book!!!\n";
+            return -1;
+        }
         std::cout << "Enter index to view details: ";
-        std::getline(std::cin, line);
+        if (!std::getline(std::cin, line))
+        {
+            std::cerr << "\nEOF detected. Exiting program." << std::endl;
+            std::exit (1);
+        }
         if (line.empty()) {
             std::cout << "[Error] Input is empty. Please try again.\n";
             continue;
@@ -90,7 +108,13 @@ int getValidIndex(const PhoneBook& phoneBook)
             std::cout << "[Error] Contains non-numeric characters. Please enter only numbers.\n";
             continue;
         }
-        index = ::atoi(line.c_str());
+        char* endptr;
+        long long tempIndex = std::strtoll(line.c_str(), &endptr, 10);
+        if (tempIndex > std::numeric_limits<int>::max()) {
+            std::cout << "[Error] Number is too large or too small. Please enter a valid index.\n";
+            continue;
+        }
+        index = static_cast<int>(tempIndex);
         if (index < 0 || index >= phoneBook.getContactCount()) {
             std::cout << "[Error] Index is out of range.\n";
             continue;
@@ -109,7 +133,7 @@ int main()
 		std::cout << "Enter command (ADD, SEARCH, EXIT): ";
 		if (!std::getline(std::cin, command))
         {
-            std::cout << "\nEOF detected. Exiting program." << std::endl;
+            std::cerr << "\nEOF detected. Exiting program." << std::endl;
             break ;
         }
 		if (command == "ADD")
@@ -120,7 +144,8 @@ int main()
 		{
 			phoneBook.searchContacts();
 			int index = getValidIndex(phoneBook);
-			phoneBook.displayContacts(index);
+            if (index != -1)
+			    phoneBook.displayContacts(index);
 		}
 		else if (command == "EXIT")
 		{

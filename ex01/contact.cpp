@@ -6,7 +6,7 @@
 /*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:44:56 by kiwasa            #+#    #+#             */
-/*   Updated: 2025/04/22 20:41:55 by kiwasa           ###   ########.fr       */
+/*   Updated: 2025/04/26 23:24:14 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,29 @@ void Contact::display() const
 	std::cout << "Nickname: " << nickname << std::endl;
 	std::cout << "Phone number: " << phoneNumber << std::endl;
 	std::cout << "Darkest secret: " << darkestSecret << std::endl;
+}
+
+std::string Contact::getFirstName() const
+{
+	return firstName;
+}
+
+std::string Contact::getLastName() const
+{
+	return lastName;
+}
+
+std::string Contact::getNickname() const
+{
+	return nickname;
+}
+
+std::string Contact::getPhoneNumber() const
+{
+	return phoneNumber;
+}
+
+std::string Contact::getDarkestSecret() const
+{
+	return darkestSecret;
 }

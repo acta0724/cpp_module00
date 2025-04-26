@@ -6,7 +6,7 @@
 /*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 18:51:28 by kiwasa            #+#    #+#             */
-/*   Updated: 2025/04/22 19:08:33 by kiwasa           ###   ########.fr       */
+/*   Updated: 2025/04/26 23:13:51 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ int main(int argc, char **argv)
 	}
 	for (int i = 1; i < argc; ++i)
 	{
-		for (int j = 0; argv[i][j] != '\0'; ++j)
+		std::string word = argv[i];
+		for (std::size_t j = 0; j < word.size(); ++j)
 		{
-			std::cout << (char)std::toupper(argv[i][j]);
+			std::cout << static_cast<char>(std::toupper(argv[i][j]));
 		}
 		std::cout << " ";
 	}
