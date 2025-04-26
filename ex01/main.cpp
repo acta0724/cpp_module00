@@ -6,7 +6,7 @@
 /*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:25:23 by kiwasa            #+#    #+#             */
-/*   Updated: 2025/04/24 02:26:44 by kiwasa           ###   ########.fr       */
+/*   Updated: 2025/04/26 17:19:00 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,11 @@ int main()
 	while(true)
 	{
 		std::cout << "Enter command (ADD, SEARCH, EXIT): ";
-		std::getline(std::cin, command);
+		if (!std::getline(std::cin, command))
+        {
+            std::cout << "\nEOF detected. Exiting program." << std::endl;
+            break ;
+        }
 		if (command == "ADD")
 		{
 			addContactToPhoneBook(phoneBook);
