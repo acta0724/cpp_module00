@@ -6,7 +6,7 @@
 /*   By: kiwasa <kiwasa@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:25:23 by kiwasa            #+#    #+#             */
-/*   Updated: 2025/04/27 00:14:13 by kiwasa           ###   ########.fr       */
+/*   Updated: 2025/04/27 20:50:50 by kiwasa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,11 +123,16 @@ int getValidIndex(const PhoneBook& phoneBook)
     }
 }
 
-int main()
+int main(int argc, char **argv)
 {
 	PhoneBook phoneBook;
 	std::string command;
 
+    if (argc != 1)
+    {
+        std::cerr << argv[0] << " is without argument!\n";
+        return (1);
+    }
 	while(true)
 	{
 		std::cout << "Enter command (ADD, SEARCH, EXIT): ";
